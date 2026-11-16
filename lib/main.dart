@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'One Love Radio',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -28,9 +28,12 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: .fromSeed(
+          seedColor: Color(0xFF718C78),
+          brightness: Brightness.dark,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'One Love Radio'),
     );
   }
 }
@@ -54,16 +57,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  bool _isPlaying = false;
 
-  void _incrementCounter() {
+  void _playPause() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      _isPlaying = !_isPlaying;
     });
   }
 
@@ -80,7 +83,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -104,18 +106,30 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
             Text(
-              '$_counter',
+              '24-7 Reggae',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 12),
+            const Text('by Joint Radio Reggae'),
+            const SizedBox(height: 12),
+            Text('Now playing', style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Track information will appear here',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Text(
+              _isPlaying ? 'LIVE' : 'PAUSED',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: _playPause,
+        tooltip: _isPlaying ? 'pause' : 'play',
+        foregroundColor: Color(0xFFD2AA63),
+        child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
       ),
     );
   }
