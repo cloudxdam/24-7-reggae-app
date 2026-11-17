@@ -1,6 +1,16 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.oneloveradio.one_love_radio.audio',
+    androidNotificationChannelName: 'One Love Radio',
+    androidNotificationOngoing: true,
+  );
+
   runApp(const MyApp());
 }
 
@@ -57,17 +67,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isPlaying = false;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioSource _radioSource = AudioSource.uri(
+    Uri.parse('https://jointil.com/stream-reggae'),
+    tag: MediaItem(
+      id: 'joint-radio-reggae',
+      title: 'Joint Radio Reggae',
+      isLive: true,
+    ),
+  );
 
-  void _playPause() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _isPlaying = !_isPlaying;
-    });
+  Future<void> _playPause() async {
+    if (_audioPlayer.playing) {
+      await _audioPlayer.pause();
+      return;
+    }
+
+    if (_audioPlayer.audioSource == null) {
+      await _audioPlayer.setAudioSource(_radioSource);
+    }
+
+    _audioPlayer.play();
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,59 +104,78 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            Text(
-              '24-7 Reggae',
-              style: Theme.of(context).textTheme.headlineMedium,
+    return StreamBuilder<bool>(
+      stream: _audioPlayer.playingStream,
+      initialData: _audioPlayer.playing,
+      builder: (context, snapshot) {
+        final isPlaying = snapshot.data ?? false;
+
+        return Scaffold(
+          appBar: AppBar(
+            // TRY THIS: Try changing the color here to a specific color (to
+            // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+            // change color while the other colors stay the same.
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text(widget.title),
+          ),
+          body: Center(
+            // Center is a layout widget. It takes a single child and positions it
+            // in the middle of the parent.
+            child: Column(
+              // Column is also a layout widget. It takes a list of children and
+              // arranges them vertically. By default, it sizes itself to fit its
+              // children horizontally, and tries to be as tall as its parent.
+              //
+              // Column has various properties to control how it sizes itself and
+              // how it positions its children. Here we use mainAxisAlignment to
+              // center the children vertically; the main axis here is the vertical
+              // axis because Columns are vertical (the cross axis would be
+              // horizontal).
+              //
+              // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+              // action in the IDE, or press "p" in the console), to see the
+              // wireframe for each widget.
+              mainAxisAlignment: .center,
+              children: [
+                Text(
+                  '24-7 Reggae',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 12),
+                const Text('by Joint Radio Reggae'),
+                const SizedBox(height: 12),
+                if (isPlaying)
+                  Text(
+                    'Now playing',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                StreamBuilder<IcyMetadata?>(
+                  stream: _audioPlayer.icyMetadataStream,
+                  builder: (context, snapshot) {
+                    final trackTitle = snapshot.data?.info?.title;
+
+                    return Text(
+                      trackTitle ?? 'Live reggae radio',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    );
+                  },
+                ),
+                Text(
+                  isPlaying ? 'LIVE' : 'PAUSED',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            const Text('by Joint Radio Reggae'),
-            const SizedBox(height: 12),
-            Text('Now playing', style: Theme.of(context).textTheme.titleMedium),
-            Text(
-              'Track information will appear here',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            Text(
-              _isPlaying ? 'LIVE' : 'PAUSED',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _playPause,
-        tooltip: _isPlaying ? 'pause' : 'play',
-        foregroundColor: Color(0xFFD2AA63),
-        child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
-      ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: _playPause,
+            tooltip: isPlaying ? 'pause' : 'play',
+            foregroundColor: Color(0xFFD2AA63),
+            child: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+          ),
+        );
+      },
     );
   }
 }

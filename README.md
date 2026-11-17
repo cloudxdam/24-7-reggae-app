@@ -4,12 +4,18 @@
 
 One Love Radio is a personal project born from my love of reggae and my habit of listening to online radio throughout the day. It’s my first project with Flutter and Dart: a dedicated player for **Joint Radio Reggae**.
 
-## Planned features
+## Features
 
-- Play and pause the live broadcast.
+- Play and pause the Joint Radio Reggae live stream.
 - Show whether playback is live or paused.
-- Continue playback in the background.
-- Support media controls in notifications and system media controls.
+- Continue playback in the background and support Android media notification controls.
+- Display track metadata from the stream’s ICY metadata when available.
+
+## Platform notes
+
+- Android: Playback, pause/resume, background audio, notification controls, and ICY metadata have been tested.
+- iOS: Not yet configured or tested.
+- Linux and Windows: Show “Live reggae radio” instead of track metadata. These builds do not poll Joint Radio’s now-playing API.
 
 For now, the app is focused on this station; multiple stations, podcasts, schedules, and news are out of scope.
 
@@ -47,4 +53,4 @@ Choose an available device when prompted. Run `flutter devices` to list them.
 
 ## Project status
 
-The project is at the initial setup stage; the radio player is not implemented yet.
+The radio player is implemented and verified on Android. Playback behavior on iOS, Linux, and Windows remains to be validated.
