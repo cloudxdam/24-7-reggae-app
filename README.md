@@ -1,26 +1,25 @@
 # One Love Radio
 
-> **Work in progress** — a simple radio app for listening to 24-7 Reggae.
+> **Work in progress** — a simple radio app for listening to Joint Radio Reggae.
 
-One Love Radio is a personal project born from my love of reggae and my habit of listening to **24-7 Reggae** several times a day. It’s my first project with Flutter and Dart: a simple, dedicated player for the station.
+One Love Radio is a personal project born from my love of reggae and my habit of listening to online radio throughout the day. It’s my first project with Flutter and Dart: a dedicated player for **Joint Radio Reggae**.
 
 ## Planned features
 
 - Play and pause the live broadcast.
 - Show whether playback is live or paused.
-- Display the current artist and track when the stream provides metadata.
 - Continue playback in the background.
-- Support media controls in Android notifications and system media controls.
+- Support media controls in notifications and system media controls.
 
-The app will remain focused on this station; multiple stations, podcasts, schedules, and news are out of scope for the moment.
+For now, the app is focused on this station; multiple stations, podcasts, schedules, and news are out of scope.
 
 ## Stream
 
-The app uses the station's direct stream URL:
+The app uses Joint Radio’s official integration URL:
 
-<https://antares.dribbcast.com/proxy/s8200/stream>
+<https://jointil.com/stream-reggae>
 
-The app will display track metadata when the stream provides it. Metadata may not be available for every update, so the app should handle that gracefully.
+The URL is listed in the [official Joint Radio streams repository](https://github.com/JointRadio/joint-radio-streams), which permits using its streams in apps. Its stated condition is to display the station’s full name, **Joint Radio Reggae**, wherever the stream is played.
 
 ## Tech stack
 
@@ -31,15 +30,13 @@ The app is intended for Android, iOS, Linux, and Windows. Android is the initial
 
 ## Getting started
 
-Requires the Flutter SDK. To check your setup, run:
+Requires the Flutter SDK. Check your setup with:
 
 ```bash
 flutter doctor -v
 ```
 
-### Run the app
-
-From the project root:
+From the project root, fetch dependencies and run the app:
 
 ```bash
 flutter pub get
