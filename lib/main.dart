@@ -8,7 +8,7 @@ Future<void> main() async {
   // Initialize the media service before runApp builds the UI.
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.oneloveradio.one_love_radio.audio',
-    androidNotificationChannelName: 'One Love Radio',
+    androidNotificationChannelName: '24-7 Reggae',
     androidNotificationOngoing: true,
   );
 

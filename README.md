@@ -1,8 +1,8 @@
-# One Love Radio
+# 24-7 Reggae
 
 > **Work in progress** — a simple radio app for listening to Joint Radio Reggae.
 
-One Love Radio is a personal project born from my love of reggae and my habit of listening to online radio throughout the day. It’s my first project with Flutter and Dart: a dedicated player for **Joint Radio Reggae**.
+24-7 Reggae is a personal project born from my love of reggae and my habit of listening to online radio throughout the day. It’s my first project with Flutter and Dart: a dedicated player for **Joint Radio Reggae**.
 
 ## Features
 
@@ -14,8 +14,7 @@ One Love Radio is a personal project born from my love of reggae and my habit of
 ## Platform notes
 
 - Android: Playback, pause/resume, background audio, notification controls, and ICY metadata have been tested.
-- iOS: Not yet configured or tested.
-- Linux and Windows: Show “Live reggae radio” instead of track metadata. These builds do not poll Joint Radio’s now-playing API.
+- Linux and Windows: Not set up yet. `just_audio` needs an extra backend package on these platforms (`media_kit_libs_linux` or `just_audio_windows`) which is not listed in `pubspec.yaml`.
 
 For now, the app is focused on this station; multiple stations, podcasts, schedules, and news are out of scope.
 
@@ -31,8 +30,10 @@ The URL is listed in the [official Joint Radio streams repository](https://githu
 
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
+- [`just_audio`](https://pub.dev/packages/just_audio) — stream playback and ICY metadata
+- [`just_audio_background`](https://pub.dev/packages/just_audio_background) — background playback and the media notification
 
-The app is intended for Android, iOS, Linux, and Windows. Android is the initial development target. Building and running the iOS app requires macOS and Xcode. Linux desktop builds require the Flutter Linux toolchain; Windows desktop builds require Windows with the Flutter Windows toolchain.
+Android is the development platform. Linux and Windows desktop builds also need the audio backend packages listed above.
 
 ## Getting started
 
@@ -53,4 +54,4 @@ Choose an available device when prompted. Run `flutter devices` to list them.
 
 ## Project status
 
-The radio player is implemented and verified on Android. Playback behavior on iOS, Linux, and Windows remains to be validated.
+The radio player is implemented and verified on Android. Linux and Windows support is pending the audio backend packages.

@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'One Love Radio',
+      title: '24-7 Reggae',
       theme: ThemeData(
         colorScheme: .fromSeed(
           seedColor: Color(0xFF718C78),
