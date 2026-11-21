@@ -14,13 +14,8 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
         scaffoldBackgroundColor: const Color(0xFF172B20),
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
       ),
-      home: const RadioPlayerPage(title: 'One Love Radio'),
+      home: const RadioPlayerPage(),
     );
   }
 }
