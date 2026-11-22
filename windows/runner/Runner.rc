@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.oneloveradio" "\0"
-            VALUE "FileDescription", "one_love_radio" "\0"
+            VALUE "CompanyName", "com.dpdev" "\0"
+            VALUE "FileDescription", "24-7 Reggae" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "one_love_radio" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.oneloveradio. All rights reserved." "\0"
-            VALUE "OriginalFilename", "one_love_radio.exe" "\0"
-            VALUE "ProductName", "one_love_radio" "\0"
+            VALUE "InternalName", "reggae_24_7" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.dpdev. All rights reserved." "\0"
+            VALUE "OriginalFilename", "reggae_24_7.exe" "\0"
+            VALUE "ProductName", "24-7 Reggae" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,11 +1,11 @@
 {
-    "name": "one_love_radio",
-    "short_name": "one_love_radio",
+    "name": "24-7 Reggae",
+    "short_name": "24-7 Reggae",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A Flutter radio player for Joint Radio Reggae.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

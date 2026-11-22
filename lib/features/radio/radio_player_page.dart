@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:material_ui/material_ui.dart';
-import 'package:one_love_radio/features/radio/radio_player_controller.dart';
+import 'package:reggae_24_7/features/radio/radio_player_controller.dart';
 
 class RadioPlayerPage extends StatefulWidget {
   const RadioPlayerPage({super.key});

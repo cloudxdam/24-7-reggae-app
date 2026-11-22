@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = one_love_radio
+PRODUCT_NAME = reggae_24_7
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.oneloveradio.oneLoveRadio
+PRODUCT_BUNDLE_IDENTIFIER = com.dpdev.reggae247
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 com.oneloveradio. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 com.dpdev. All rights reserved.

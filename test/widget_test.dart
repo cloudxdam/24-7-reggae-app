@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
-import 'package:one_love_radio/app.dart';
+import 'package:reggae_24_7/app.dart';
 
 void main() {
   testWidgets('shows the station paused on launch', (tester) async {
