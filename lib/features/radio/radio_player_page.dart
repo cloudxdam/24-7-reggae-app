@@ -101,10 +101,27 @@ class _RadioPlayerPageState extends State<RadioPlayerPage> {
                       } else {
                         displayText = 'Now playing';
                       }
-                      return Text(
-                        displayText,
-                        style: Theme.of(context).textTheme.bodyLarge
-                            ?.copyWith(color: goldColor, fontSize: 32),
+                      final trackStyle = Theme.of(context).textTheme.bodyLarge
+                          ?.copyWith(color: goldColor, fontSize: 24);
+                      final lineHeight = trackStyle?.height ?? 1.5;
+                      final fontSize = trackStyle?.fontSize ?? 24;
+                      final textScaler = MediaQuery.textScalerOf(context);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+
+                        child: SizedBox(
+                          height: textScaler.scale(fontSize * lineHeight * 2),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              displayText,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: trackStyle,
+                            ),
+                          ),
+                        ),
                       );
                     },
                   ),
