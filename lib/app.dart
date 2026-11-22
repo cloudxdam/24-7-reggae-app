@@ -1,5 +1,5 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:one_love_radio/features/radio/radio_player_page.dart';
+import 'package:reggae_24_7/features/radio/radio_player_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
