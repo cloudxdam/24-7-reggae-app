@@ -25,20 +25,27 @@ class _RadioPlayerPageState extends State<RadioPlayerPage> {
 
         return Scaffold(
           body: SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: .center,
-                children: [
-                  Text(
-                    '24-7 Reggae',
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: goldColor,
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 32),
+                    child: Text(
+                      '24-7 Reggae',
+                      style: Theme.of(context).textTheme.headlineLarge
+                          ?.copyWith(
+                            color: goldColor,
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  DecoratedBox(
+                ),
+
+                Center(
+                  child: DecoratedBox(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: const LinearGradient(
@@ -68,72 +75,96 @@ class _RadioPlayerPageState extends State<RadioPlayerPage> {
                       icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  SizedBox(
-                    width: 80,
-                    child: Badge(
-                      backgroundColor: isPlaying
-                          ? const Color(0xFFDA121A)
-                          : Theme.of(context).colorScheme.secondaryContainer,
-                      textColor: isPlaying
-                          ? Colors.white
-                          : Theme.of(context).colorScheme.onSecondaryContainer,
-                      textStyle: Theme.of(context).textTheme.labelLarge,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      label: Text(isPlaying ? 'LIVE' : 'PAUSED'),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  StreamBuilder<String?>(
-                    stream: _controller.trackTitleStream,
-                    builder: (context, snapshot) {
-                      // The station sends ICY track titles; fall back to a state label while
-                      // they load or when the platform does not parse them.
-                      final trackTitle = snapshot.data;
-                      final String displayText;
-                      if (!isPlaying) {
-                        displayText = 'Live reggae radio';
-                      } else if (trackTitle != null) {
-                        displayText = trackTitle;
-                      } else {
-                        displayText = 'Now playing';
-                      }
-                      final trackStyle = Theme.of(context).textTheme.bodyLarge
-                          ?.copyWith(color: goldColor, fontSize: 24);
-                      final lineHeight = trackStyle?.height ?? 1.5;
-                      final fontSize = trackStyle?.fontSize ?? 24;
-                      final textScaler = MediaQuery.textScalerOf(context);
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                ),
 
-                        child: SizedBox(
-                          height: textScaler.scale(fontSize * lineHeight * 2),
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Text(
-                              displayText,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: trackStyle,
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 32),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: Badge(
+                            backgroundColor: isPlaying
+                                ? const Color(0xFFDA121A)
+                                : Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                            textColor: isPlaying
+                                ? Colors.white
+                                : Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer,
+                            textStyle: Theme.of(context).textTheme.labelLarge,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
                             ),
+                            label: Text(isPlaying ? 'LIVE' : 'PAUSED'),
                           ),
                         ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 48),
-                  Text(
-                    'by Joint Radio Reggae',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        const SizedBox(height: 16),
+                        StreamBuilder<String?>(
+                          stream: _controller.trackTitleStream,
+                          builder: (context, snapshot) {
+                            // The station sends ICY track titles; fall back to a state label while
+                            // they load or when the platform does not parse them.
+                            final trackTitle = snapshot.data;
+                            final String displayText;
+                            if (!isPlaying) {
+                              displayText = 'Live reggae radio';
+                            } else if (trackTitle != null) {
+                              displayText = trackTitle;
+                            } else {
+                              displayText = 'Now playing';
+                            }
+                            final trackStyle = Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(color: goldColor, fontSize: 24);
+                            final lineHeight = trackStyle?.height ?? 1.5;
+                            final fontSize = trackStyle?.fontSize ?? 24;
+                            final textScaler = MediaQuery.textScalerOf(context);
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                              ),
+
+                              child: SizedBox(
+                                height: textScaler.scale(
+                                  fontSize * lineHeight * 2,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Text(
+                                    displayText,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: trackStyle,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 48),
+                        Text(
+                          'by Joint Radio Reggae',
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
+                              ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
